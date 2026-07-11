@@ -104,7 +104,7 @@ A handful of the most common traps:
 | Overview | فوق العرض | نظرة عامة |
 | Assignee | المحال إليه | المسؤول |
 
-**Before translating any real batch of strings, read [references/terminology.md](references/terminology.md)** — it has the full literal-translation table, the canonical glossary (accounts/users, statuses, CRUD verbs, navigation), loanword guidance (which terms stay as `API`/`GPS`/`PDF`), and domain vocabularies for construction/field-ops, finance, CRM, and AI features. Match the project's existing Arabic terminology over these defaults when it already has one.
+**Before translating any real batch of strings, read [references/terminology.md](references/terminology.md)** — it has the full literal-translation table, the canonical glossary (accounts/users, statuses, CRUD verbs, navigation), loanword guidance (which terms stay as `API`/`GPS`/`PDF`), and domain vocabularies spanning e-commerce, finance/fintech, healthcare, education, travel, real estate, food delivery, HR, CRM, social, government services, construction/field-ops, and AI features — pick whichever matches the product, and use the same reasoning to extend to any domain not listed. Match the project's existing Arabic terminology over these defaults when it already has one.
 
 ## RTL requirements
 

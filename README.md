@@ -2,7 +2,7 @@
 
 A [Claude](https://claude.com/claude-code) skill that generates **natural, native-quality Arabic UI copy** — the kind a native Arabic-speaking product team would actually write — instead of literal, machine-sounding translations from English.
 
-It works across any project type: web, mobile, and landing pages. It knows locale files (`ar.json`, next-intl, i18next, etc.), UI copy patterns (buttons, errors, empty states, confirmations), Arabic grammar (gender, plurals, definite articles, punctuation), RTL layout concerns, and domain vocabulary for construction/field-ops, finance, CRM, and AI features.
+It works across any project type: web, mobile, and landing pages. It knows locale files (`ar.json`, next-intl, i18next, etc.), UI copy patterns (buttons, errors, empty states, confirmations), Arabic grammar (gender, plurals, definite articles, punctuation), RTL layout concerns, and domain vocabulary spanning e-commerce, finance/fintech, healthcare, education, travel, real estate, food delivery, HR, CRM, social apps, government services, construction/field-ops, and AI features.
 
 ## Install
 
