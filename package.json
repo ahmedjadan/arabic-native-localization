@@ -1,6 +1,6 @@
 {
   "name": "arabic-native-localization",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Claude skill that writes natural, native-quality Arabic UI copy (locale files, buttons, errors, empty states, RTL) instead of literal translations. Install into ~/.claude/skills via npx.",
   "bin": {
     "arabic-native-localization": "bin/cli.js"
