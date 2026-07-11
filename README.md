@@ -44,6 +44,8 @@ Then restart Claude Code (or open a new session). The skill loads automatically 
 - **RTL-aware** — logical CSS properties, icon mirroring rules, bidi isolation for mixed-direction content.
 - **Locale-file safe** — preserves keys, placeholders (`{{email}}`), and interpolation byte-for-byte; only the words change.
 
+Grounded in real authorities, not just an opinionated glossary: Unicode CLDR's Arabic plural rules, the Unicode Bidirectional Algorithm, W3C Internationalization's Arabic script notes, and major i18n libraries (i18next, FormatJS) — see [`skill/references/resources.md`](skill/references/resources.md) for the full list.
+
 ## Uninstall
 
 ```bash

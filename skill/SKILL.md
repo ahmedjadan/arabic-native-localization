@@ -106,6 +106,8 @@ A handful of the most common traps:
 
 **Before translating any real batch of strings, read [references/terminology.md](references/terminology.md)** — it has the full literal-translation table, the canonical glossary (accounts/users, statuses, CRUD verbs, navigation), loanword guidance (which terms stay as `API`/`GPS`/`PDF`), and domain vocabularies spanning e-commerce, finance/fintech, healthcare, education, travel, real estate, food delivery, HR, CRM, social, government services, construction/field-ops, and AI features — pick whichever matches the product, and use the same reasoning to extend to any domain not listed. Match the project's existing Arabic terminology over these defaults when it already has one.
 
+When a question isn't settled by that glossary — an unfamiliar plural form, a bidi edge case, whether a rule here still matches current practice — see [references/resources.md](references/resources.md) for the external authorities (Unicode CLDR, W3C i18n, MDN, major i18n libraries) this skill's grammar and RTL rules are grounded in.
+
 ## RTL requirements
 
 When generating UI code with Arabic support: set app/document direction to `rtl` for Arabic. Prefer logical CSS properties over hardcoded sides — `margin-inline-start/end`, `padding-inline-start/end`, `border-inline-start/end`, `text-align: start` — not `margin-left`/`text-align: left` unless there's a deliberate visual reason.
