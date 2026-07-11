@@ -1,0 +1,40 @@
+{
+  "name": "arabic-native-localization",
+  "version": "1.0.0",
+  "description": "Claude skill that writes natural, native-quality Arabic UI copy (locale files, buttons, errors, empty states, RTL) instead of literal translations. Install into ~/.claude/skills via npx.",
+  "bin": {
+    "arabic-native-localization": "bin/cli.js"
+  },
+  "files": [
+    "bin/",
+    "skill/",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "claude",
+    "claude-code",
+    "claude-skill",
+    "agent-skill",
+    "arabic",
+    "localization",
+    "l10n",
+    "i18n",
+    "rtl",
+    "translation",
+    "next-intl"
+  ],
+  "author": "Ahmed Jadan",
+  "license": "MIT",
+  "homepage": "https://github.com/ahmedjadan/arabic-native-localization#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahmedjadan/arabic-native-localization.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ahmedjadan/arabic-native-localization/issues"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}
