@@ -2,7 +2,7 @@
 name: arabic-native-localization
 description: Use whenever generating, reviewing, translating, or refactoring Arabic (ar) interface text in application code — locale JSON/TS files, UI labels, buttons, validation and error messages, empty states, notifications, toasts, dashboards, forms, onboarding, mobile screens, landing pages, and SaaS interfaces. Produces natural Arabic product copy written for native speakers, not literal English translations, and handles RTL layout concerns. Apply this even when the user just says "add Arabic", "translate to Arabic", "the Arabic sounds off/robotic", "fix the ar locale", or adds Arabic strings to any web, mobile, or marketing project. Not for dialect translation of prose documents unrelated to a product UI.
 user-invocable: true
-argument-hint: "[review|translate <path or strings>]"
+argument-hint: "[translate|review|audit <path or strings>]"
 ---
 
 # Arabic Native Localization
@@ -16,6 +16,105 @@ Arabic copy must be understandable on first read, sound natural to native speake
 ## Default language style
 
 Use Modern Standard Arabic suitable for professional digital products. Tone: clear, human, direct, professional, friendly without being casual — fit for SaaS, business, operations, mobile, and admin apps. Do not use regional dialect unless the project explicitly requests one.
+
+**Regional register** — keep MSA by default. Use Egyptian, Gulf, Levantine, or other regional forms only when the product explicitly asks. Do not mix Eastern Arabic digits (`٠١٢`) and Western digits (`012`) without an explicit product-level rule; preserve the project's current digit convention.
+
+## Modes
+
+When the user selects a mode (or the task clearly matches one), follow that mode's workflow **and** use its output template. Do not return unstructured general commentary.
+
+| Mode | Use when | Required output |
+|---|---|---|
+| `translate` | Creating new strings or filling missing Arabic values | Diff-style `key → Arabic` (include English when creating both locales), terminology locks, ambiguities, validation status |
+| `review` | Reviewing existing Arabic UI copy | Findings in the five review categories below only |
+| `audit` | Auditing a full locale or repository | Key counts, missing/extra keys, placeholders, untranslated values, plural families, punctuation, validator exit status |
+
+### Translate output template
+
+```text
+## Terminology locks
+
+- English concept → approved Arabic term
+- English concept → existing project term retained
+
+## Translations
+
+- `namespace.key`
+  - EN: ...
+  - AR: ...
+
+## Ambiguities
+
+- `namespace.key`: explain the missing product or UI context.
+- None, when no ambiguities remain.
+
+## Validation
+
+- Locale validation: passed / failed / not run
+- Remaining issues: ...
+```
+
+Omit the EN line when English already exists and is unchanged.
+
+### Review output template
+
+Use these exact top-level categories (no competing classification):
+
+```text
+## Literal translations
+
+- `key`: current → proposed
+  - Reason: ...
+
+## Inconsistent terminology
+
+- `key`: current → approved project term
+  - Conflicts with: ...
+
+## Missing or untranslated strings
+
+- `key`: ...
+
+## RTL and bidi issues
+
+- Surface/file: ...
+  - Issue: ...
+  - Recommended correction: ...
+
+## Recommended replacements
+
+- `key`
+  - Current: ...
+  - Replacement: ...
+
+## Validation
+
+- Locale validation: passed / failed / not run
+- Remaining issues: ...
+```
+
+While reviewing, check native quality, context accuracy, terminology consistency, UI length, grammar, interpolation, RTL, and tone — then **map every finding into the categories above**.
+
+When unsure about tone, register, or UI phrasing, skim [references/examples.md](references/examples.md).
+
+### Audit output template
+
+```text
+## Audit summary
+
+- Locale files inspected: ...
+- English key count: ...
+- Arabic key count: ...
+- Missing Arabic keys: ...
+- Extra Arabic keys: ... (if checked)
+- Placeholder mismatches: ...
+- Suspected untranslated values: ...
+- Incomplete plural families: ...
+- Typography / punctuation warnings: ...
+- Validator command: ...
+- Validator exit status: ...
+- Files changed: ... (if changes were requested)
+```
 
 ## Core rule
 
@@ -31,6 +130,22 @@ Better:
 ```
 
 Choose the final wording from the product context — a construction site may say "الوردية" where an office attendance system says "الدوام".
+
+When unsure about tone, register, or UI phrasing, skim [references/examples.md](references/examples.md).
+
+## Glossary-first project workflow
+
+Before translating or rewriting, lock the project's vocabulary:
+
+1. Locate locale setup and files: `ar.json`, `en.json`, `messages/ar`, `locales/ar`, `translations/ar`, i18next resources, next-intl messages, FormatJS messages, Expo / React Native translation modules, or other locale structures in the repo.
+2. Determine the i18n library and key organization.
+3. Extract existing Arabic for recurring concepts: core nouns, main actions, statuses, navigation labels, domain entities, repeated validation and feedback language.
+4. Build a temporary terminology-lock list for this task.
+5. Prefer established project terms over defaults in [references/terminology.md](references/terminology.md), unless an existing term is clearly incorrect, misleading, or inconsistent.
+6. Call out intentional terminology changes — never silently replace established terms.
+7. Only then translate or rewrite new strings.
+
+`references/terminology.md` is a **fallback and calibration** source, not permission to overwrite a product's established vocabulary.
 
 ## Context before translating
 
@@ -73,16 +188,23 @@ Avoid bare `لا توجد بيانات` / `فارغ` unless space is extremely t
 
 **Search / filters** — `بحث`, `ابحث بالاسم أو الرقم`, `لم يتم العثور على نتائج`, `مسح البحث`; `تصفية`, `عوامل التصفية`, `تطبيق التصفية`, `جميع الحالات`. Use `فلترة` only when the project deliberately adopts common technical loanwords.
 
+**Length budgets** — Arabic UI text is often materially longer than English (roughly 20–40% as a design warning, not a law). Prefer shorter verbs and drop filler for buttons, tabs, badges, table headers, mobile nav, and toasts when space is tight.
+
+**Accessibility strings** — for `aria-label` / `accessibilityLabel` on icon-only controls, name the action directly (`حفظ`, `حذف`, `رجوع`). Avoid redundant suffixes like `زر` when the accessibility API already announces the control role.
+
 ## Arabic grammar rules
 
 **Definite articles** — use `ال` only where natural: `إعدادات المشروع`, `أعضاء الفريق`, `حالة الطلب`. Avoid `الإعدادات الخاصة بالمشروع`.
 
 **Gender** — the user's gender is usually unknown, so avoid gendered wording: prefer `يمكنك متابعة الطلب.` / `تم إرسال دعوتك.` / `أدخل بيانات الحساب.` Never use slash forms like `مرحبًا بكِ أو بكَ`. When the product genuinely knows the user's gender, handle it through localization logic, not inline slashes.
 
-**Singular / dual / plural** — do NOT build Arabic plurals by copying English `${count} مشروع` for every count. Arabic has zero/one/two/few/many/other forms. Use the i18n library's plural API:
+**Singular / dual / plural** — do NOT build Arabic plurals by copying English `${count} مشروع` for every count. Arabic has zero/one/two/few/many/other forms. Use the i18n library's plural API. Natural phrasing may collapse some categories when context already reads clearly — see [references/examples.md](references/examples.md).
+
 ```json
 { "projects_zero": "لا توجد مشاريع", "projects_one": "مشروع واحد", "projects_two": "مشروعان", "projects_few": "{{count}} مشاريع", "projects_many": "{{count}} مشروعًا", "projects_other": "{{count}} مشروع" }
 ```
+
+When implementing plural or interpolation syntax, load [references/i18n-adapters.md](references/i18n-adapters.md). Never invent plural key shapes — detect the installed library and match existing keys.
 
 **Numbers / dates / currency** — never hand-concatenate. Use locale-aware formatters: `new Intl.NumberFormat(locale).format(value)`, `new Intl.DateTimeFormat(locale, options).format(date)`.
 
@@ -104,9 +226,9 @@ A handful of the most common traps:
 | Overview | فوق العرض | نظرة عامة |
 | Assignee | المحال إليه | المسؤول |
 
-**Before translating any real batch of strings, read [references/terminology.md](references/terminology.md)** — it has the full literal-translation table, the canonical glossary (accounts/users, statuses, CRUD verbs, navigation), loanword guidance (which terms stay as `API`/`GPS`/`PDF`), and domain vocabularies spanning e-commerce, finance/fintech, healthcare, education, travel, real estate, food delivery, HR, CRM, social, government services, construction/field-ops, and AI features — pick whichever matches the product, and use the same reasoning to extend to any domain not listed. Match the project's existing Arabic terminology over these defaults when it already has one.
+**Before translating any real batch of strings, read [references/terminology.md](references/terminology.md)** after completing the glossary-first workflow — full literal-translation table, canonical glossary, loanword guidance, and domain vocabularies. Match the project's existing Arabic terminology over these defaults when it already has one.
 
-When a question isn't settled by that glossary — an unfamiliar plural form, a bidi edge case, whether a rule here still matches current practice — see [references/resources.md](references/resources.md) for the external authorities (Unicode CLDR, W3C i18n, MDN, major i18n libraries) this skill's grammar and RTL rules are grounded in.
+When a question isn't settled by that glossary — an unfamiliar plural form, a bidi edge case, whether a rule here still matches current practice — see [references/resources.md](references/resources.md) for external authorities.
 
 ## RTL requirements
 
@@ -115,6 +237,8 @@ When generating UI code with Arabic support: set app/document direction to `rtl`
 Mirror directional icons (back/next arrows, breadcrumb separators, steppers, drawer direction, chevrons). Do NOT mirror play icons, universal media controls, brand logos, checkmarks, download icons, or clock icons.
 
 Isolate mixed-direction content (IDs, phone numbers, emails, codes) with `<bdi>{value}</bdi>` or `unicode-bidi: isolate`.
+
+For practical phone/email/ID examples, React Native isolation, and double-mirroring pitfalls, see [references/rtl.md](references/rtl.md).
 
 ## Working with locale files
 
@@ -140,24 +264,27 @@ Move every user-facing string into locale files, generate **both** English and A
 <Button>{t("common.save")}</Button>
 ```
 
-## Reviewing Arabic text
-
-When asked to review (not implement), check each of these and group findings by category:
-
-1. **Native quality** — does it read naturally on its own, independent of the English?
-2. **Context accuracy** — does each term match the actual feature and action?
-3. **Terminology consistency** — same concept translated the same way everywhere (`مستخدم`/`عضو`/`موظف`, `اعتماد`/`موافقة`, `تسجيل حضور`/`تسجيل دخول`)?
-4. **UI length** — anything likely to overflow buttons, tabs, badges, table headers, or mobile cards?
-5. **Grammar** — gender agreement, plural forms, definite articles, prepositions, number agreement.
-6. **Interpolation** — placeholders intact and naturally placed?
-7. **RTL** — layout direction, icon direction, text alignment, mixed-direction content.
-8. **Tone** — remove robotic, promotional, or bureaucratic wording unless the domain requires it.
-
-Return review findings grouped as: (1) incorrect/literal translations, (2) inconsistent terminology, (3) missing translations, (4) RTL issues, (5) recommended replacements.
-
 ## When implementing
 
-Modify the relevant locale files; touch UI code only where needed for correct localization or RTL. Reuse existing shared keys. Avoid unrelated refactors. In your summary, list major terminology decisions, flag ambiguous strings that need product context, note any missing English source copy that blocked an accurate translation, and run whatever locale validation / typecheck / lint / tests the project has.
+1. Identify the source and target locale files.
+2. Detect the i18n library.
+3. Lock project terminology (glossary-first workflow).
+4. Implement translations using the project's existing key and plural conventions ([references/i18n-adapters.md](references/i18n-adapters.md)).
+5. When Node.js and compatible JSON locale files are available, run the validator:
+
+```bash
+node skill/scripts/check-locale.mjs --source path/to/en.json --target path/to/ar.json
+# optional: --check-extra --punctuation --allowlist path.json --format json
+```
+
+Or from the package root: `npm run check:locale -- --source ... --target ...`.
+
+6. Fix required validation failures.
+7. Report the command, result, warnings, and any checks that could not run.
+
+Never claim validation passed without actually running the script. If the project's locale format is unsupported (non-JSON, arrays-as-values, etc.), say so and manually report the equivalent checks.
+
+Modify only the relevant locale files; touch UI code only where needed for correct localization or RTL. Reuse existing shared keys. Avoid unrelated refactors. In your summary, list major terminology decisions, flag ambiguous strings, and note any missing English source copy that blocked an accurate translation.
 
 ## Quality standard
 

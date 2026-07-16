@@ -1,0 +1,18 @@
+{
+  "common": {
+    "save": "Save changes",
+    "cancel": "Cancel"
+  },
+  "projects": {
+    "greeting": "Hello, {{name}}",
+    "invite": "Invite {name} to {project}"
+  },
+  "projects_zero": "No projects",
+  "projects_one": "One project",
+  "projects_two": "Two projects",
+  "projects_few": "{{count}} projects",
+  "projects_many": "{{count}} projects",
+  "projects_other": "{{count}} projects",
+  "brand": "WhatsApp",
+  "docsUrl": "https://example.com/docs"
+}

@@ -5,6 +5,10 @@
   "bin": {
     "arabic-native-localization": "bin/cli.js"
   },
+  "scripts": {
+    "check:locale": "node skill/scripts/check-locale.mjs",
+    "test:locale": "node skill/scripts/check-locale.selftest.mjs"
+  },
   "files": [
     "bin/",
     "skill/",

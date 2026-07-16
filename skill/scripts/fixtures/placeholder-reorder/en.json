@@ -1,0 +1,3 @@
+{
+  "msg": "Hello {{name}}, welcome to {{project}}"
+}

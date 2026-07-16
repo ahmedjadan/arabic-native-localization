@@ -1,0 +1,12 @@
+{
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete"
+  },
+  "nested": {
+    "deep": {
+      "title": "Title"
+    }
+  }
+}

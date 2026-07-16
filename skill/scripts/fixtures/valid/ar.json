@@ -1,0 +1,18 @@
+{
+  "common": {
+    "save": "حفظ التغييرات",
+    "cancel": "إلغاء"
+  },
+  "projects": {
+    "greeting": "مرحبًا، {{name}}",
+    "invite": "ادعُ {name} إلى {project}"
+  },
+  "projects_zero": "لا توجد مشاريع",
+  "projects_one": "مشروع واحد",
+  "projects_two": "مشروعان",
+  "projects_few": "{{count}} مشاريع",
+  "projects_many": "{{count}} مشروعًا",
+  "projects_other": "{{count}} مشروع",
+  "brand": "WhatsApp",
+  "docsUrl": "https://example.com/docs"
+}

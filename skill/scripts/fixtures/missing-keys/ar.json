@@ -1,0 +1,9 @@
+{
+  "common": {
+    "save": "حفظ",
+    "cancel": "إلغاء"
+  },
+  "nested": {
+    "deep": {}
+  }
+}

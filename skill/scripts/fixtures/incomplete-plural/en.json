@@ -1,0 +1,8 @@
+{
+  "items_zero": "No items",
+  "items_one": "One item",
+  "items_two": "Two items",
+  "items_few": "{{count}} items",
+  "items_many": "{{count}} items",
+  "items_other": "{{count}} items"
+}
